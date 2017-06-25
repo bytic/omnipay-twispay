@@ -1,0 +1,34 @@
+{
+  "name": "bytic/medialibrary",
+  "type": "library",
+  "license": "MIT",
+  "description": "Twispay driver for ThePhpLeague Omnipay multi-payment processing library",
+  "keywords": [
+    "twispay",
+    "driver",
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment"
+  ],
+  "homepage": "https://github.com/ByTIC/omnipay-twispay",
+  "authors": [
+    {
+      "name": "Gabriel Solomon",
+      "email": "hello@gabrielsolomon.ro"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ByTIC\\Omnipay\\Twispay\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.0",
+    "omnipay/common": "^2.3"
+  },
+  "require-dev": {
+    "omnipay/tests": "^2.0"
+  }
+}
