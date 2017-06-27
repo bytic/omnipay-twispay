@@ -23,7 +23,7 @@ class Gateway extends AbstractGateway
     /**
      * @var string
      */
-    private $apiKey = '';
+    private $privateKey = '';
 
     /**
      * @var int
@@ -83,7 +83,7 @@ class Gateway extends AbstractGateway
         return [
             'testMode' => true, // Must be the 1st in the list!
             'siteId' => $this->getSiteId(),
-            'apiKey' => $this->getApiKey(),
+            'apiKey' => $this->getPrivateKey(),
             'apiUrl' => $this->getApiUrl(),
         ];
     }
@@ -112,9 +112,9 @@ class Gateway extends AbstractGateway
      *
      * @return string
      */
-    public function getApiKey()
+    public function getPrivateKey()
     {
-        return $this->parameters->get('apiKey', $this->apiKey);
+        return $this->parameters->get('apiKey', $this->privateKey);
     }
 
     /**
@@ -123,7 +123,7 @@ class Gateway extends AbstractGateway
      *
      * @return $this
      */
-    public function setApiKey($value)
+    public function setPrivateKey($value)
     {
         return $this->setParameter('apiKey', $value);
     }
