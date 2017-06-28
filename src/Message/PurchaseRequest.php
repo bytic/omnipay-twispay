@@ -3,7 +3,6 @@
 namespace ByTIC\Omnipay\Twispay\Message;
 
 use ByTIC\Omnipay\Twispay\Helper;
-use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * PayU Purchase Request
@@ -15,19 +14,10 @@ class PurchaseRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $postData = $this->getData();
-        $postData['checksum'] = Helper::generateChecksun($postData, $this->getApiKey());
-        try {
-            $httpResponse = $this->post(
-                $this->getSe,
-                null,
-                $postData,
-                $this->getParameters()
-            )->send();
-        } catch (ClientErrorResponseException $e) {
-            return $this->response = new PurchaseResponse($this, $e->getResponse()->json());
-        }
-        return $this->response = new PurchaseResponse($this, (string)$httpResponse->getBody());
+        $data = $this->getData();
+        $data['checksum'] = Helper::generateChecksun($data, $this->getApiKey());
+
+        return $this->response = new PurchaseResponse($this, $data, $this->getSecureUrl());
     }
 
     /**
@@ -37,7 +27,11 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        return [
+        $this->validate(
+            'siteId', 'apiKey', 'amount', 'currency', 'description', 'orderId', 'notifyUrl', 'returnUrl', 'card'
+        );
+
+        $data = [
             'siteId' => $this->getSiteId(),
             'identifier' => $this->getIdentifier(),
             'amount' => $this->getAmount(),
@@ -47,6 +41,7 @@ class PurchaseRequest extends AbstractRequest
             'orderId' => $this->getOrderId(),
             'checksum' => $this->getChecksum(),
         ];
+        return $data;
     }
 
     /**
