@@ -76,6 +76,17 @@ class Gateway extends AbstractGateway
     // ------------ Getter'n'Setters ------------ //
 
     /**
+     * Get live- or testURL.
+     */
+    public function getSecureUrl()
+    {
+        $defaultUrl = $this->getTestMode()
+            ? $this->testSecureHost
+            : $this->prodSecureHost;
+        return $this->parameters->get('secureUrl', $defaultUrl);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getDefaultParameters()
@@ -85,6 +96,7 @@ class Gateway extends AbstractGateway
             'siteId' => $this->getSiteId(),
             'apiKey' => $this->getPrivateKey(),
             'apiUrl' => $this->getApiUrl(),
+            'secureUrl' => $this->getSecureUrl(),
         ];
     }
 
@@ -137,17 +149,6 @@ class Gateway extends AbstractGateway
             ? $this->testApiHost
             : $this->prodApiHost;
         return $this->parameters->get('apiUrl', $defaultUrl);
-    }
-
-    /**
-     * Get live- or testURL.
-     */
-    public function getSecureUrl()
-    {
-        $defaultUrl = $this->getTestMode()
-            ? $this->testSecureHost
-            : $this->prodSecureHost;
-        return $this->parameters->get('secureUrl', $defaultUrl);
     }
 
     /**
