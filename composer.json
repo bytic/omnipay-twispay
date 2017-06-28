@@ -1,5 +1,5 @@
 {
-  "name": "bytic/medialibrary",
+  "name": "bytic/omnipay-twispay",
   "type": "library",
   "license": "MIT",
   "description": "Twispay driver for ThePhpLeague Omnipay multi-payment processing library",
