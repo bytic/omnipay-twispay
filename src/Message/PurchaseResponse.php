@@ -2,27 +2,13 @@
 
 namespace ByTIC\Omnipay\Twispay\Message;
 
-use ByTIC\Common\Payments\Gateways\Providers\AbstractGateway\Message\PurchaseResponse as AbstractPurchaseResponse;
-use ByTIC\Common\Payments\Gateways\Providers\AbstractGateway\Message\RedirectResponse\RedirectTrait;
+use ByTIC\Omnipay\Common\Message\Traits\RedirectHtmlTrait;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
  * PayU Purchase Response
  */
-class PurchaseResponse extends AbstractPurchaseResponse implements RedirectResponseInterface
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    use RedirectTrait;
-
-    /**
-     * @return array
-     */
-    public function getRedirectData()
-    {
-        $data = [
-            'env_key' => $this->getDataProperty('env_key'),
-            'data' => $this->getDataProperty('data'),
-        ];
-
-        return $data;
-    }
+    use RedirectHtmlTrait;
 }
