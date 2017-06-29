@@ -14,7 +14,7 @@ abstract class AbstractResponse extends CommonAbstractResponse
     use DataAccessorsTrait;
 
     /**
-     * @internal
+     * @inheritdoc
      */
     public function isSuccessful()
     {
