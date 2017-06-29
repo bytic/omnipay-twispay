@@ -7,15 +7,15 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 
 /**
- * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface capture(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface refund(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface void(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = [])
+ * @method RequestInterface authorize(array $options = [])
+ * @method RequestInterface completeAuthorize(array $options = [])
+ * @method RequestInterface capture(array $options = [])
+ * @method RequestInterface completePurchase(array $options = [])
+ * @method RequestInterface refund(array $options = [])
+ * @method RequestInterface void(array $options = [])
+ * @method RequestInterface createCard(array $options = [])
+ * @method RequestInterface updateCard(array $options = [])
+ * @method RequestInterface deleteCard(array $options = [])
  */
 class Gateway extends AbstractGateway
 {
@@ -80,9 +80,9 @@ class Gateway extends AbstractGateway
      */
     public function getSecureUrl()
     {
-        $defaultUrl = $this->getTestMode()
-            ? $this->testSecureHost
-            : $this->prodSecureHost;
+        $defaultUrl = $this->getTestMode() === false
+            ? $this->prodSecureHost
+            : $this->testSecureHost;
         return $this->parameters->get('secureUrl', $defaultUrl);
     }
 
@@ -145,9 +145,9 @@ class Gateway extends AbstractGateway
      */
     public function getApiUrl()
     {
-        $defaultUrl = $this->getTestMode()
-            ? $this->testApiHost
-            : $this->prodApiHost;
+        $defaultUrl = $this->getTestMode() === false
+            ? $this->prodApiHost
+            : $this->testApiHost;
         return $this->parameters->get('apiUrl', $defaultUrl);
     }
 

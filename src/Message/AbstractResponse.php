@@ -2,6 +2,7 @@
 
 namespace ByTIC\Omnipay\Twispay\Message;
 
+use ByTIC\Omnipay\Common\Message\Traits\DataAccessorsTrait;
 use Omnipay\Common\Message\AbstractResponse as CommonAbstractResponse;
 
 /**
@@ -10,6 +11,8 @@ use Omnipay\Common\Message\AbstractResponse as CommonAbstractResponse;
  */
 abstract class AbstractResponse extends CommonAbstractResponse
 {
+    use DataAccessorsTrait;
+
     /**
      * @internal
      */

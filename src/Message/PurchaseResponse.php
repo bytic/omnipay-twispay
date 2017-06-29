@@ -11,4 +11,14 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     use RedirectHtmlTrait;
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function filterRedirectData($data)
+    {
+        unset($data['redirectUrl']);
+        return $data;
+    }
 }
