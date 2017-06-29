@@ -2,6 +2,7 @@
 
 namespace ByTIC\Omnipay\Twispay;
 
+use ByTIC\Omnipay\Twispay\Message\CompletePurchaseRequest;
 use ByTIC\Omnipay\Twispay\Message\PurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
@@ -10,7 +11,6 @@ use Omnipay\Common\Message\RequestInterface;
  * @method RequestInterface authorize(array $options = [])
  * @method RequestInterface completeAuthorize(array $options = [])
  * @method RequestInterface capture(array $options = [])
- * @method RequestInterface completePurchase(array $options = [])
  * @method RequestInterface refund(array $options = [])
  * @method RequestInterface void(array $options = [])
  * @method RequestInterface createCard(array $options = [])
@@ -58,7 +58,7 @@ class Gateway extends AbstractGateway
         return 'Twispay';
     }
 
-    // ------------ Requests ------------ //
+    // ------------ REQUESTS ------------ //
 
     /**
      * @inheritdoc
@@ -73,8 +73,6 @@ class Gateway extends AbstractGateway
         );
     }
 
-    // ------------ Getter'n'Setters ------------ //
-
     /**
      * Get live- or testURL.
      */
@@ -85,6 +83,8 @@ class Gateway extends AbstractGateway
             : $this->testSecureHost;
         return $this->parameters->get('secureUrl', $defaultUrl);
     }
+
+    // ------------ Getter'n'Setters ------------ //
 
     /**
      * {@inheritdoc}
@@ -149,6 +149,19 @@ class Gateway extends AbstractGateway
             ? $this->prodApiHost
             : $this->testApiHost;
         return $this->parameters->get('apiUrl', $defaultUrl);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function completePurchase(array $parameters = []): RequestInterface
+    {
+//        $parameters['apiUrl'] = $this->getSecureUrl();
+
+        return $this->createRequest(
+            CompletePurchaseRequest::class,
+            array_merge($this->getDefaultParameters(), $parameters)
+        );
     }
 
     /**
