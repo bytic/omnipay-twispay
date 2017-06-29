@@ -84,8 +84,6 @@ class Gateway extends AbstractGateway
         return $this->parameters->get('secureUrl', $defaultUrl);
     }
 
-    // ------------ Getter'n'Setters ------------ //
-
     /**
      * {@inheritdoc}
      */
@@ -99,6 +97,8 @@ class Gateway extends AbstractGateway
             'secureUrl' => $this->getSecureUrl(),
         ];
     }
+
+    // ------------ Getter'n'Setters ------------ //
 
     /**
      *
