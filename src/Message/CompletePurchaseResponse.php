@@ -3,6 +3,7 @@
 namespace ByTIC\Omnipay\Twispay\Message;
 
 use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
+use ByTIC\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
 
 /**
  * Class PurchaseResponse
@@ -11,6 +12,7 @@ use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
 class CompletePurchaseResponse extends AbstractResponse
 {
     use GatewayNotificationResponseTrait;
+    use ConfirmHtmlTrait;
 
     /**
      * @inheritdoc
