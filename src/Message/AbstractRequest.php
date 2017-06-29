@@ -2,6 +2,7 @@
 
 namespace ByTIC\Omnipay\Twispay\Message;
 
+use ByTIC\Omnipay\Common\Message\Traits\SendDataRequestTrait;
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 
 /**
@@ -10,6 +11,7 @@ use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
  */
 abstract class AbstractRequest extends CommonAbstractRequest
 {
+    use SendDataRequestTrait;
 
     /**
      * @return mixed
