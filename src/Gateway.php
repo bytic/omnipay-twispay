@@ -4,6 +4,7 @@ namespace ByTIC\Omnipay\Twispay;
 
 use ByTIC\Omnipay\Twispay\Message\CompletePurchaseRequest;
 use ByTIC\Omnipay\Twispay\Message\PurchaseRequest;
+use ByTIC\Omnipay\Twispay\Message\ServerCompletePurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 
@@ -84,7 +85,8 @@ class Gateway extends AbstractGateway
         return $this->parameters->get('secureUrl', $defaultUrl);
     }
 
-    /**
+    /** @noinspection PhpMissingParentCallCommonInspection
+     *
      * {@inheritdoc}
      */
     public function getDefaultParameters()
@@ -98,7 +100,7 @@ class Gateway extends AbstractGateway
         ];
     }
 
-    // ------------ Getter'n'Setters ------------ //
+    // ------------ PARAMETERS ------------ //
 
     /**
      *
@@ -119,6 +121,8 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('siteId', $value);
     }
+
+    // ------------ Getter'n'Setters ------------ //
 
     /**
      *
@@ -156,10 +160,21 @@ class Gateway extends AbstractGateway
      */
     public function completePurchase(array $parameters = []): RequestInterface
     {
+        return $this->createRequest(
+            CompletePurchaseRequest::class,
+            array_merge($this->getDefaultParameters(), $parameters)
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function serverCompletePurchase(array $parameters = []): RequestInterface
+    {
 //        $parameters['apiUrl'] = $this->getSecureUrl();
 
         return $this->createRequest(
-            CompletePurchaseRequest::class,
+            ServerCompletePurchaseRequest::class,
             array_merge($this->getDefaultParameters(), $parameters)
         );
     }
