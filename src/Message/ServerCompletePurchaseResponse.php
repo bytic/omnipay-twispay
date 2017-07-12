@@ -2,7 +2,7 @@
 
 namespace ByTIC\Omnipay\Twispay\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
+use ByTIC\Omnipay\Twispay\Message\Traits\CompletePurchaseResponseTrait;
 
 /**
  * Class PurchaseResponse
@@ -10,27 +10,11 @@ use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
  */
 class ServerCompletePurchaseResponse extends AbstractResponse
 {
-    use GatewayNotificationResponseTrait;
+    use CompletePurchaseResponseTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function isSuccessful()
+    public function send()
     {
-        if ($this->hasNotificationDataItem('status') && $this->getNotificationDataItem('status') == 'complete-ok') {
-            return true;
-        }
-        return parent::isSuccessful();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function isPending()
-    {
-        if ($this->hasNotificationDataItem('status') && $this->getNotificationDataItem('status') == 'in-progress') {
-            return true;
-        }
-        return parent::isPending();
+        echo 'OK';
+        die();
     }
 }
