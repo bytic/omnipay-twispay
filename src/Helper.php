@@ -13,7 +13,7 @@ class Helper
      * @param string $key
      * @return string
      */
-    public static function generateChecksun(array $data, string $key)
+    public static function generateChecksum(array $data, string $key)
     {
         unset($data['checksum']);
         self::recursiveKeySort($data);

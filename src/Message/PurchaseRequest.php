@@ -26,7 +26,7 @@ class PurchaseRequest extends AbstractRequest
     public function sendData($data)
     {
         $data = $this->getData();
-        $data['checksum'] = Helper::generateChecksun($data, $this->getApiKey());
+        $data['checksum'] = Helper::generateChecksum($data, $this->getApiKey());
         $data['redirectUrl'] = $this->getSecureUrl();
 
         return $this->response = new PurchaseResponse($this, $data, $this->getSecureUrl());

@@ -122,6 +122,17 @@ class Gateway extends AbstractGateway
         return $this->setParameter('siteId', $value);
     }
 
+    /**
+     * @param  boolean $value
+     * @return $this
+     */
+    public function setTestMode($value)
+    {
+        $this->parameters->remove('apiUrl');
+        $this->parameters->remove('secureUrl');
+        return parent::setTestMode($value);
+    }
+
     // ------------ Getter'n'Setters ------------ //
 
     /**
