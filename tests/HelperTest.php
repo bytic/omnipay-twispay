@@ -2,7 +2,6 @@
 
 namespace ByTIC\Omnipay\Twispay\Tests;
 
-
 use ByTIC\Omnipay\Twispay\Helper;
 
 /**
