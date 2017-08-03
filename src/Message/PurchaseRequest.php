@@ -64,7 +64,7 @@ class PurchaseRequest extends AbstractRequest
 
         $data['firstName'] = $card->getBillingFirstName();
         $data['lastName'] = $card->getBillingLastName();
-//        $data['address'] = $card->getBillingAddress1();
+        $data['address'] = $card->getBillingAddress1();
         $data['phone'] = $card->getBillingPhone();
         $data['email'] = $card->getEmail();
         $data['invoiceEmail'] = $card->getEmail();
