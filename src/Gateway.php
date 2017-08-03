@@ -182,7 +182,7 @@ class Gateway extends AbstractGateway
      */
     public function serverCompletePurchase(array $parameters = []): RequestInterface
     {
-//        $parameters['apiUrl'] = $this->getSecureUrl();
+        //        $parameters['apiUrl'] = $this->getSecureUrl();
 
         return $this->createRequest(
             ServerCompletePurchaseRequest::class,
