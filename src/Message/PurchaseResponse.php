@@ -6,7 +6,8 @@ use ByTIC\Omnipay\Common\Message\Traits\RedirectHtmlTrait;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * PayU Purchase Response
+ * Class PurchaseResponse
+ * @package ByTIC\Omnipay\Twispay\Message
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {

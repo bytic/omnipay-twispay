@@ -5,7 +5,10 @@ namespace ByTIC\Omnipay\Twispay\Message;
 use ByTIC\Omnipay\Twispay\Helper;
 
 /**
- * PayU Purchase Request
+ * Class PurchaseRequest
+ * @package ByTIC\Omnipay\Twispay\Message
+ *
+ * @method PurchaseResponse send()
  */
 class PurchaseRequest extends AbstractRequest
 {
@@ -16,7 +19,8 @@ class PurchaseRequest extends AbstractRequest
     public function initialize(array $parameters = [])
     {
         $parameters['orderType'] = isset($parameters['orderType']) ? $parameters['orderType'] : 'purchase';
-        $parameters['identifier'] = isset($parameters['identifier']) ? $parameters['identifier'] : 'anonymous';
+
+        $parameters['identifier'] = isset($parameters['identifier']) ? $parameters['identifier'] : 'anonymous'. microtime(true);
         return parent::initialize($parameters);
     }
 
@@ -25,11 +29,10 @@ class PurchaseRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $data = $this->getData();
         $data['checksum'] = Helper::generateChecksum($data, $this->getApiKey());
         $data['redirectUrl'] = $this->getSecureUrl();
 
-        return $this->response = new PurchaseResponse($this, $data, $this->getSecureUrl());
+        return parent::sendData($data);
     }
 
     /**
