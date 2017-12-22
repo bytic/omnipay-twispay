@@ -15,6 +15,5 @@ class ServerCompletePurchaseResponse extends AbstractResponse
     public function send()
     {
         echo 'OK';
-        die();
     }
 }

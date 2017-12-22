@@ -124,7 +124,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param  boolean $value
-     * @return $this
+     * @return $this|AbstractGateway
      */
     public function setTestMode($value)
     {
@@ -182,8 +182,6 @@ class Gateway extends AbstractGateway
      */
     public function serverCompletePurchase(array $parameters = []): RequestInterface
     {
-        //        $parameters['apiUrl'] = $this->getSecureUrl();
-
         return $this->createRequest(
             ServerCompletePurchaseRequest::class,
             array_merge($this->getDefaultParameters(), $parameters)
