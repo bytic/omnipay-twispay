@@ -20,7 +20,9 @@ class PurchaseRequest extends AbstractRequest
     {
         $parameters['orderType'] = isset($parameters['orderType']) ? $parameters['orderType'] : 'purchase';
 
-        $parameters['identifier'] = isset($parameters['identifier']) ? $parameters['identifier'] : 'anonymous'. microtime(true);
+        $parameters['identifier'] = isset($parameters['identifier']) ?
+            $parameters['identifier'] : 'anonymous'.microtime(true);
+
         return parent::initialize($parameters);
     }
 
@@ -37,7 +39,6 @@ class PurchaseRequest extends AbstractRequest
 
     /**
      * @return array
-     * @throws \Omnipay\Common\Exception\InvalidCreditCardException
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
     public function getData()

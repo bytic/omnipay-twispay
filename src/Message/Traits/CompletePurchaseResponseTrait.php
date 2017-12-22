@@ -27,6 +27,7 @@ trait CompletePurchaseResponseTrait
         ) {
             return true;
         }
+
         return parent::isSuccessful();
     }
 
@@ -43,6 +44,7 @@ trait CompletePurchaseResponseTrait
         ) {
             return true;
         }
+
         return parent::isPending();
     }
 }
