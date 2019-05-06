@@ -24,13 +24,14 @@ trait CompletePurchaseRequestTrait
 
         $json = Helper::decrypt($dataResult, $this->getApiKey());
         $data = json_decode($json, true);
+
         return $data;
     }
 
     /**
      * @return mixed
      */
-    protected function isValidNotification()
+    public function isValidNotification()
     {
         return $this->hasGet('id') && ($this->hasPOST('opensslResult') || $this->hasPOST('result'));
     }
