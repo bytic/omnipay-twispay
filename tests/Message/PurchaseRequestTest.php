@@ -5,7 +5,7 @@ namespace ByTIC\Omnipay\Twispay\Tests\Message;
 use ByTIC\Omnipay\Twispay\Message\PurchaseRequest;
 use ByTIC\Omnipay\Twispay\Message\PurchaseResponse;
 use ByTIC\Omnipay\Twispay\Tests\AbstractTest;
-use Guzzle\Http\Client as HttpClient;
+use Omnipay\Common\Http\Client;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
@@ -21,12 +21,15 @@ class PurchaseRequestTest extends AbstractTest
             'siteId' => 11111,
             'apiKey' => 22222,
             'amount' => 123.0,
-            'currency' => 123,
+            'currency' => 'RON',
             'description' => 'lorem ipsum',
             'orderId' => 123,
             'notifyUrl' => 123,
             'returnUrl' => 123,
-            'card' => 123,
+            'card' => [
+                'firstName' => 'Example',
+                'lastName' => 'User'
+            ],
         ];
         $class->initialize($data);
         $response = $class->send();
@@ -44,12 +47,15 @@ class PurchaseRequestTest extends AbstractTest
             'siteId' => 11111,
             'apiKey' => 22222,
             'amount' => 123.0,
-            'currency' => 123,
+            'currency' => 'RON',
             'description' => 'lorem ipsum',
             'orderId' => 123,
             'notifyUrl' => 123,
             'returnUrl' => 123,
-            'card' => 123,
+            'card' => [
+                'firstName' => 'Example',
+                'lastName' => 'User'
+            ],
         ];
         $class->initialize($data);
         $response = $class->send();
@@ -62,7 +68,7 @@ class PurchaseRequestTest extends AbstractTest
      */
     protected function newPurchaseRequest()
     {
-        $client = new HttpClient();
+        $client = new Client();
         $request = HttpRequest::createFromGlobals();
         $request = new PurchaseRequest($client, $request);
         return $request;
