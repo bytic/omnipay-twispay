@@ -1,12 +1,12 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Message\Traits;
+namespace Paytic\Omnipay\Twispay\Message\Traits;
 
-use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
+use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
 
 /**
  * Trait CompletePurchaseResponseTrait
- * @package ByTIC\Omnipay\Twispay\Message\Traits
+ * @package Paytic\Omnipay\Twispay\Message\Traits
  */
 trait CompletePurchaseResponseTrait
 {

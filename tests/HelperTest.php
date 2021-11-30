@@ -1,12 +1,12 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Tests;
+namespace Paytic\Omnipay\Twispay\Tests;
 
-use ByTIC\Omnipay\Twispay\Helper;
+use Paytic\Omnipay\Twispay\Helper;
 
 /**
  * Class HelperTest
- * @package ByTIC\Omnipay\Twispay\Tests
+ * @package Paytic\Omnipay\Twispay\Tests
  */
 class HelperTest extends AbstractTest
 {

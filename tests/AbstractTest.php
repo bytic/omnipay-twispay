@@ -1,6 +1,6 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Tests;
+namespace Paytic\Omnipay\Twispay\Tests;
 
 use PHPUnit\Framework\TestCase;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Message;
+namespace Paytic\Omnipay\Twispay\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\RedirectHtmlTrait;
 use Omnipay\Common\Message\RedirectResponseInterface;
+use Paytic\Omnipay\Common\Message\Traits\RedirectHtmlTrait;
 
 /**
  * Class PurchaseResponse
- * @package ByTIC\Omnipay\Twispay\Message
+ * @package Paytic\Omnipay\Twispay\Message
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {

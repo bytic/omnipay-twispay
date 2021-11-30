@@ -1,8 +1,10 @@
 <?php
 
+use Paytic\Omnipay\Twispay\Gateway;
+
 require 'init.php';
 
-$gateway = new \ByTIC\Omnipay\Twispay\Gateway();
+$gateway = new Gateway();
 $parameters = [
     'siteId' => $_ENV['TWISPAY_SITE_ID'],
     'apiKey' => $_ENV['TWISPAY_API_KEY'],

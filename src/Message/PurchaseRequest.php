@@ -1,12 +1,13 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Message;
+namespace Paytic\Omnipay\Twispay\Message;
 
-use ByTIC\Omnipay\Twispay\Helper;
+use Omnipay\Common\Exception\InvalidRequestException;
+use Paytic\Omnipay\Twispay\Helper;
 
 /**
  * Class PurchaseRequest
- * @package ByTIC\Omnipay\Twispay\Message
+ * @package Paytic\Omnipay\Twispay\Message
  *
  * @method PurchaseResponse send()
  */
@@ -39,7 +40,7 @@ class PurchaseRequest extends AbstractRequest
 
     /**
      * @return array
-     * @throws \Omnipay\Common\Exception\InvalidRequestException
+     * @throws InvalidRequestException
      */
     public function getData()
     {

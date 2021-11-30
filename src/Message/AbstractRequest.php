@@ -1,13 +1,13 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Message;
+namespace Paytic\Omnipay\Twispay\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\SendDataRequestTrait;
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
+use Paytic\Omnipay\Common\Message\Traits\SendDataRequestTrait;
 
 /**
  * Class AbstractRequest
- * @package ByTIC\Omnipay\Twispay\Message
+ * @package Paytic\Omnipay\Twispay\Message
  */
 abstract class AbstractRequest extends CommonAbstractRequest
 {

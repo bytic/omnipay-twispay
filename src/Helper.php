@@ -1,10 +1,12 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay;
+namespace Paytic\Omnipay\Twispay;
+
+use Exception;
 
 /**
  * Class Helper
- * @package ByTIC\Omnipay\Twispay
+ * @package Paytic\Omnipay\Twispay
  */
 class Helper
 {
@@ -39,7 +41,7 @@ class Helper
      * @param string $encrypted
      * @param $key
      * @return null|string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function decrypt(string $encrypted, $key)
     {
@@ -47,15 +49,15 @@ class Helper
             $encryptedParts = explode(',', $encrypted, 2);
             $iv = base64_decode($encryptedParts[0]);
             if ($iv === false) {
-                throw new \Exception('Invalid encryption iv');
+                throw new Exception('Invalid encryption iv');
             }
             $encrypted = base64_decode($encryptedParts[1]);
             if ($encrypted === false) {
-                throw new \Exception('Invalid encrypted data');
+                throw new Exception('Invalid encrypted data');
             }
             $decrypted = openssl_decrypt($encrypted, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
             if ($decrypted === false) {
-                throw new \Exception('Cannot decrypt data');
+                throw new Exception('Cannot decrypt data');
             }
             return $decrypted;
         }

@@ -1,16 +1,16 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Tests\Message;
+namespace Paytic\Omnipay\Twispay\Tests\Message;
 
-use ByTIC\Omnipay\Twispay\Message\PurchaseRequest;
-use ByTIC\Omnipay\Twispay\Message\PurchaseResponse;
-use ByTIC\Omnipay\Twispay\Tests\AbstractTest;
 use Omnipay\Common\Http\Client;
+use Paytic\Omnipay\Twispay\Message\PurchaseRequest;
+use Paytic\Omnipay\Twispay\Message\PurchaseResponse;
+use Paytic\Omnipay\Twispay\Tests\AbstractTest;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  * Class PurchaseRequestTest
- * @package ByTIC\Omnipay\Twispay\Tests\Message
+ * @package Paytic\Omnipay\Twispay\Tests\Message
  */
 class PurchaseRequestTest extends AbstractTest
 {

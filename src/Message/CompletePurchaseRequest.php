@@ -1,12 +1,12 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay\Message;
+namespace Paytic\Omnipay\Twispay\Message;
 
-use ByTIC\Omnipay\Twispay\Message\Traits\CompletePurchaseRequestTrait;
+use Paytic\Omnipay\Twispay\Message\Traits\CompletePurchaseRequestTrait;
 
 /**
  * Class PurchaseResponse
- * @package ByTIC\Omnipay\Twispay\Message
+ * @package Paytic\Omnipay\Twispay\Message
  */
 class CompletePurchaseRequest extends AbstractRequest
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace ByTIC\Omnipay\Twispay;
+namespace Paytic\Omnipay\Twispay;
 
-use ByTIC\Omnipay\Twispay\Message\CompletePurchaseRequest;
-use ByTIC\Omnipay\Twispay\Message\PurchaseRequest;
-use ByTIC\Omnipay\Twispay\Message\ServerCompletePurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
+use Paytic\Omnipay\Twispay\Message\CompletePurchaseRequest;
+use Paytic\Omnipay\Twispay\Message\PurchaseRequest;
+use Paytic\Omnipay\Twispay\Message\ServerCompletePurchaseRequest;
 
 /**
  * @method RequestInterface authorize(array $options = [])
