@@ -13,7 +13,6 @@ use Paytic\Omnipay\Twispay\Helper;
  */
 class PurchaseRequest extends AbstractRequest
 {
-
     /**
      * @inheritdoc
      */
@@ -22,7 +21,7 @@ class PurchaseRequest extends AbstractRequest
         $parameters['orderType'] = isset($parameters['orderType']) ? $parameters['orderType'] : 'purchase';
 
         $parameters['identifier'] = isset($parameters['identifier']) ?
-            $parameters['identifier'] : 'anonymous'.microtime(true);
+            $parameters['identifier'] : 'anonymous' . microtime(true);
 
         return parent::initialize($parameters);
     }
@@ -45,7 +44,15 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
         $this->validate(
-            'siteId', 'apiKey', 'amount', 'currency', 'description', 'orderId', 'notifyUrl', 'returnUrl', 'card'
+            'siteId',
+            'apiKey',
+            'amount',
+            'currency',
+            'description',
+            'orderId',
+            'notifyUrl',
+            'returnUrl',
+            'card'
         );
 
         $data = [
