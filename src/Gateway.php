@@ -20,7 +20,6 @@ use Paytic\Omnipay\Twispay\Message\ServerCompletePurchaseRequest;
  */
 class Gateway extends AbstractGateway
 {
-
     /**
      * @var string
      */
