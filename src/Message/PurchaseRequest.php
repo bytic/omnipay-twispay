@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Paytic\Omnipay\Twispay\Message;
 
+use Omnipay\Common\CreditCard;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Paytic\Omnipay\Twispay\Utility\TwispayCountry;
 use Paytic\Omnipay\Twispay\Utility\TwispayEncoder;
 use Paytic\Omnipay\Twispay\Utility\TwispayOrderType;
 use Paytic\Omnipay\Twispay\Utility\TwispayTransactionMode;
@@ -136,15 +138,18 @@ class PurchaseRequest extends AbstractRequest
         return $data;
     }
 
-    protected function buildDataCustomer($card): array
+    protected function buildDataCustomer(CreditCard $card): array
     {
+        $city = (string)$card->getBillingCity();
+        $city = empty($city) || strlen($city) < 2 ? 'unknown' : $city;
+
         $data = [
             'identifier' => sha1($card->getEmail()),
             'firstName' => $card->getBillingFirstName() ?: '',
             'lastName' => $card->getBillingLastName() ?: '',
-            'country' => $card->getBillingCountry() ?: '',
+            'country' => TwispayCountry::transform($card->getBillingCountry() ?: ''),
             'state' => $card->getBillingState() ?: '',
-            'city' => $card->getBillingCity() ?: '',
+            'city' => $city, // mandatory
             'address' => $card->getBillingAddress1() ?: '',
             'zipCode' => $card->getBillingPostcode() ?: '',
             'phone' => $card->getBillingPhone() ?: '',
