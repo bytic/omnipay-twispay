@@ -1,29 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message\Traits;
 
 use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
 
 /**
- * Trait CompletePurchaseResponseTrait
- * @package Paytic\Omnipay\Twispay\Message\Traits
+ * Trait CompletePurchaseResponseTrait.
  */
 trait CompletePurchaseResponseTrait
 {
     use GatewayNotificationResponseTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSuccessful()
     {
         if ($this->hasNotificationDataItem('status')
-            && $this->getNotificationDataItem('status') == 'complete-ok'
+            && 'complete-ok' == $this->getNotificationDataItem('status')
         ) {
             return true;
         }
         if ($this->hasNotificationDataItem('transactionStatus')
-            && $this->getNotificationDataItem('transactionStatus') == 'complete-ok'
+            && 'complete-ok' == $this->getNotificationDataItem('transactionStatus')
         ) {
             return true;
         }
@@ -32,15 +33,15 @@ trait CompletePurchaseResponseTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isPending()
     {
-        if ($this->hasNotificationDataItem('status') && $this->getNotificationDataItem('status') == 'in-progress') {
+        if ($this->hasNotificationDataItem('status') && 'in-progress' == $this->getNotificationDataItem('status')) {
             return true;
         }
         if ($this->hasNotificationDataItem('transactionStatus')
-            && $this->getNotificationDataItem('transactionStatus') == 'in-progress'
+            && 'in-progress' == $this->getNotificationDataItem('transactionStatus')
         ) {
             return true;
         }

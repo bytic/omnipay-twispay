@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message;
 
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Paytic\Omnipay\Common\Message\Traits\RedirectHtmlTrait;
 
 /**
- * Class PurchaseResponse
- * @package Paytic\Omnipay\Twispay\Message
+ * Class PurchaseResponse.
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     use RedirectHtmlTrait;
 
     /**
-     * @param $data
      * @return mixed
      */
     protected function filterRedirectData($data)
     {
         unset($data['redirectUrl']);
+
         return $data;
     }
 }

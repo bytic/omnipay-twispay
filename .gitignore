@@ -1,7 +1,8 @@
 .idea/
-
-vendor
-
 .phpunit.result.cache
+.php-cs-fixer.cache
+
+tests/.env
+vendor
 
 composer.lock

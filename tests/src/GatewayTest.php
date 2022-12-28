@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Tests;
 
 use Paytic\Omnipay\Twispay\Gateway;
 
 /**
- * Class HelperTest
- * @package Paytic\Omnipay\Twispay\Tests
+ * Class HelperTest.
  */
 class GatewayTest extends AbstractTest
 {

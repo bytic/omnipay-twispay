@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay;
 
-use Exception;
+use Paytic\Omnipay\Twispay\Utility\TwispayDecoder;
+use function is_array;
+use const SORT_STRING;
 
 /**
- * Class Helper
- * @package Paytic\Omnipay\Twispay
+ * Class Helper.
  */
 class Helper
 {
     /**
-     * @param array $data
-     * @param string $key
      * @return string
      */
     public static function generateChecksum(array $data, string $key)
@@ -21,12 +22,10 @@ class Helper
         self::recursiveKeySort($data);
         $query = http_build_query($data);
         $encoded = hash_hmac('sha512', $query, $key, true);
+
         return base64_encode($encoded);
     }
 
-    /**
-     * @param array $data
-     */
     private static function recursiveKeySort(array &$data)
     {
         ksort($data, SORT_STRING);
@@ -38,29 +37,12 @@ class Helper
     }
 
     /**
-     * @param string $encrypted
-     * @param $key
-     * @return null|string
-     * @throws Exception
+     * @return string|null
+     *
+     * @deprecated use TwispayDecoder::decrypt
      */
     public static function decrypt(string $encrypted, $key)
     {
-        if (strpos($encrypted, ',') !== false) {
-            $encryptedParts = explode(',', $encrypted, 2);
-            $iv = base64_decode($encryptedParts[0]);
-            if ($iv === false) {
-                throw new Exception('Invalid encryption iv');
-            }
-            $encrypted = base64_decode($encryptedParts[1]);
-            if ($encrypted === false) {
-                throw new Exception('Invalid encrypted data');
-            }
-            $decrypted = openssl_decrypt($encrypted, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
-            if ($decrypted === false) {
-                throw new Exception('Cannot decrypt data');
-            }
-            return $decrypted;
-        }
-        return null;
+        return TwispayDecoder::decrypt($encrypted, $key);
     }
 }

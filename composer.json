@@ -1,8 +1,8 @@
 {
   "name": "paytic/omnipay-twispay",
-  "type": "library",
-  "license": "MIT",
   "description": "Twispay driver for ThePhpLeague Omnipay multi-payment processing library",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "twispay",
     "driver",
@@ -12,13 +12,29 @@
     "pay",
     "payment"
   ],
-  "homepage": "https://github.com/paytic/omnipay-twispay",
   "authors": [
     {
       "name": "Gabriel Solomon",
       "email": "hello@gabrielsolomon.ro"
     }
   ],
+  "homepage": "https://github.com/paytic/omnipay-twispay",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-json": "*",
+    "ext-openssl": "*",
+    "paytic/omnipay-common": "^3.0 || ^4.0"
+  },
+  "require-dev": {
+    "bytic/phpqatools": "^1.0",
+    "mockery/mockery": "^1.0",
+    "omnipay/tests": "^3 || ^4",
+    "php-http/guzzle7-adapter": "^1.0",
+    "php-http/mock-client": "^1.0",
+    "vlucas/phpdotenv": "^2.3"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Paytic\\Omnipay\\Twispay\\": "src/"
@@ -26,18 +42,15 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Paytic\\Omnipay\\Twispay\\Tests\\": "tests/"
+      "Paytic\\Omnipay\\Twispay\\Tests\\": "tests/src"
     }
   },
-  "require": {
-    "php": "^7.0|^8.0",
-    "paytic/omnipay-common": "^3.0"
-  },
-  "require-dev": {
-    "omnipay/tests": "^3|^4",
-    "vlucas/phpdotenv": "^2.3",
-    "mockery/mockery": "^1.0",
-    "php-http/mock-client": "^1.0",
-    "php-http/guzzle7-adapter": "^1.0"
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "ergebnis/composer-normalize": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "bytic/phpqatools": true
+    }
   }
 }

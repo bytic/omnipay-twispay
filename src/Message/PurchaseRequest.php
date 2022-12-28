@@ -1,92 +1,55 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
-use Paytic\Omnipay\Twispay\Helper;
+use Paytic\Omnipay\Twispay\Utility\TwispayEncoder;
+use Paytic\Omnipay\Twispay\Utility\TwispayOrderType;
+use Paytic\Omnipay\Twispay\Utility\TwispayTransactionMode;
 
 /**
- * Class PurchaseRequest
- * @package Paytic\Omnipay\Twispay\Message
+ * Class PurchaseRequest.
  *
  * @method PurchaseResponse send()
  */
 class PurchaseRequest extends AbstractRequest
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function initialize(array $parameters = [])
     {
-        $parameters['orderType'] = isset($parameters['orderType']) ? $parameters['orderType'] : 'purchase';
-
-        $parameters['identifier'] = isset($parameters['identifier']) ?
-            $parameters['identifier'] : 'anonymous' . microtime(true);
+        $parameters['orderType'] ??= TwispayOrderType::PURCHASE;
+        $parameters['cardTransactionMode'] ??= TwispayTransactionMode::AUTH_AND_CAPTURE;
 
         return parent::initialize($parameters);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendData($data)
     {
-        $data['checksum'] = Helper::generateChecksum($data, $this->getApiKey());
         $data['redirectUrl'] = $this->getSecureUrl();
 
         return parent::sendData($data);
     }
 
     /**
-     * @return array
      * @throws InvalidRequestException
      */
-    public function getData()
+    public function getData(): array
     {
-        $this->validate(
-            'siteId',
-            'apiKey',
-            'amount',
-            'currency',
-            'description',
-            'orderId',
-            'notifyUrl',
-            'returnUrl',
-            'card'
-        );
+        $this->guardValidRequest();
 
-        $data = [
-//            'apiKey' => $this->getSiteId(),
-//            'notifyUrl' => $this->getNotifyUrl(),
-            'siteId' => $this->getSiteId(),
-            'backUrl' => $this->getReturnUrl(),
-            'identifier' => $this->getIdentifier(),
-            'amount' => $this->getAmount(),
-            'currency' => $this->getCurrency(),
-            'description' => $this->getDescription(),
-            'orderType' => $this->getOrderType(),
-            'orderId' => $this->getOrderId(),
-//            'checksum' => $this->getChecksum(),
+        $orderData = $this->buildData();
+
+        return [
+            'jsonRequest' => TwispayEncoder::getBase64JsonRequest($orderData),
+            'checksum' => TwispayEncoder::getBase64Checksum($orderData, $this->getApiKey()),
         ];
-
-        $card = $this->getCard();
-
-        $data['firstName'] = $card->getBillingFirstName();
-        $data['lastName'] = $card->getBillingLastName();
-        $data['address'] = $card->getBillingAddress1();
-        $data['phone'] = $card->getBillingPhone();
-        $data['email'] = $card->getEmail();
-        $data['invoiceEmail'] = $card->getEmail();
-
-        return $data;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdentifier()
-    {
-        return $this->getParameter('identifier');
     }
 
     /**
@@ -105,6 +68,11 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('orderId');
     }
 
+    public function getCardTransactionMode()
+    {
+        return $this->getParameter('cardTransactionMode');
+    }
+
     /**
      * @return mixed
      */
@@ -114,16 +82,6 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param $value
-     * @return \Omnipay\Common\Message\AbstractRequest
-     */
-    public function setIdentifier($value)
-    {
-        return $this->setParameter('identifier', $value);
-    }
-
-    /**
-     * @param $value
      * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function setOrderType($value)
@@ -131,8 +89,12 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('orderType', $value);
     }
 
+    public function setCardTransactionMode($value)
+    {
+        return $this->setParameter('cardTransactionMode', $value);
+    }
+
     /**
-     * @param $value
      * @return \Omnipay\Common\Message\AbstractRequest
      */
     public function setOrderId($value)
@@ -141,11 +103,67 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param $value
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return void
      */
-    public function setChecksum($value)
+    protected function guardValidRequest()
     {
-        return $this->setParameter('checksum', $value);
+        $this->validate(
+            'siteId',
+            'apiKey',
+            'amount',
+            'currency',
+            'description',
+            'orderId',
+//            'notifyUrl',
+            'returnUrl',
+            'card'
+        );
+    }
+
+    protected function buildData(): array
+    {
+        $card = $this->getCard();
+
+        $data = [
+            'siteId' => (int)$this->getSiteId(),
+            'customer' => $this->buildDataCustomer($card),
+            'order' => $this->buildDataOrder(),
+            'cardTransactionMode' => $this->getCardTransactionMode(),
+            'invoiceEmail' => $card->getEmail(),
+            'backUrl' => $this->getReturnUrl(),
+        ];
+
+        return $data;
+    }
+
+    protected function buildDataCustomer($card): array
+    {
+        $data = [
+            'identifier' => sha1($card->getEmail()),
+            'firstName' => $card->getBillingFirstName() ?: '',
+            'lastName' => $card->getBillingLastName() ?: '',
+            'country' => $card->getBillingCountry() ?: '',
+            'state' => $card->getBillingState() ?: '',
+            'city' => $card->getBillingCity() ?: '',
+            'address' => $card->getBillingAddress1() ?: '',
+            'zipCode' => $card->getBillingPostcode() ?: '',
+            'phone' => $card->getBillingPhone() ?: '',
+            'email' => $card->getEmail() ?: '',
+        ];
+
+        return $data;
+    }
+
+    protected function buildDataOrder(): array
+    {
+        $data = [
+            'orderId' => $this->getOrderId(),
+            'type' => $this->getOrderType(),
+            'amount' => (float)$this->getAmount(),
+            'currency' => $this->getCurrency(),
+            'description' => $this->getDescription(),
+        ];
+
+        return $data;
     }
 }

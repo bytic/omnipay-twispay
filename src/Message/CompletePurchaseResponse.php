@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message;
 
 use Paytic\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
 use Paytic\Omnipay\Twispay\Message\Traits\CompletePurchaseResponseTrait;
 
 /**
- * Class PurchaseResponse
- * @package BPaytic\Omnipay\Twispay\Message
+ * Class PurchaseResponse.
  */
 class CompletePurchaseResponse extends AbstractResponse
 {
-    use ConfirmHtmlTrait;
     use CompletePurchaseResponseTrait;
+    use ConfirmHtmlTrait;
 }

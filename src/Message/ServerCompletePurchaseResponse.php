@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message;
 
 use Paytic\Omnipay\Twispay\Message\Traits\CompletePurchaseResponseTrait;
 
 /**
- * Class PurchaseResponse
- * @package ByTIC\Common\Payments\Gateways\Providers\AbstractGateway\Messages
+ * Class PurchaseResponse.
  */
 class ServerCompletePurchaseResponse extends AbstractResponse
 {

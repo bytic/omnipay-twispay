@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message;
 
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 use Paytic\Omnipay\Common\Message\Traits\SendDataRequestTrait;
 
 /**
- * Class AbstractRequest
- * @package Paytic\Omnipay\Twispay\Message
+ * Class AbstractRequest.
  */
 abstract class AbstractRequest extends CommonAbstractRequest
 {
@@ -22,7 +23,6 @@ abstract class AbstractRequest extends CommonAbstractRequest
     }
 
     /**
-     * @param $value
      * @return CommonAbstractRequest
      */
     public function setSiteId($value)
@@ -39,12 +39,11 @@ abstract class AbstractRequest extends CommonAbstractRequest
     }
 
     /**
-     * @param $value
      * @return CommonAbstractRequest
      */
     public function setApiKey($value)
     {
-        return $this->setParameter('apiKey', $value);
+        return $this->setParameter('apiKey', (string)$value);
     }
 
     /**
@@ -56,7 +55,6 @@ abstract class AbstractRequest extends CommonAbstractRequest
     }
 
     /**
-     * @param $value
      * @return CommonAbstractRequest
      */
     public function setApiUrl($value)
@@ -73,7 +71,6 @@ abstract class AbstractRequest extends CommonAbstractRequest
     }
 
     /**
-     * @param $value
      * @return CommonAbstractRequest
      */
     public function setSecureUrl($value)

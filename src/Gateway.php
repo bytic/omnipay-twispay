@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay;
 
 use Omnipay\Common\AbstractGateway;
@@ -51,7 +53,7 @@ class Gateway extends AbstractGateway
     private $prodSecureHost = 'https://secure.twispay.com';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -61,7 +63,7 @@ class Gateway extends AbstractGateway
     // ------------ REQUESTS ------------ //
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function purchase(array $parameters = []): RequestInterface
     {
@@ -78,9 +80,10 @@ class Gateway extends AbstractGateway
      */
     public function getSecureUrl()
     {
-        $defaultUrl = $this->getTestMode() === false
+        $defaultUrl = false === $this->getTestMode()
             ? $this->prodSecureHost
             : $this->testSecureHost;
+
         return $this->parameters->get('secureUrl', $defaultUrl);
     }
 
@@ -102,7 +105,6 @@ class Gateway extends AbstractGateway
     // ------------ PARAMETERS ------------ //
 
     /**
-     *
      * @return string
      */
     public function getSiteId()
@@ -111,7 +113,6 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     *
      * @param string $value
      *
      * @return $this
@@ -122,20 +123,21 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  boolean $value
+     * @param bool $value
+     *
      * @return $this|AbstractGateway
      */
     public function setTestMode($value)
     {
         $this->parameters->remove('apiUrl');
         $this->parameters->remove('secureUrl');
+
         return parent::setTestMode($value);
     }
 
     // ------------ Getter'n'Setters ------------ //
 
     /**
-     *
      * @return string
      */
     public function getPrivateKey()
@@ -144,7 +146,6 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     *
      * @param string $value
      *
      * @return $this
@@ -159,14 +160,15 @@ class Gateway extends AbstractGateway
      */
     public function getApiUrl()
     {
-        $defaultUrl = $this->getTestMode() === false
+        $defaultUrl = false === $this->getTestMode()
             ? $this->prodApiHost
             : $this->testApiHost;
+
         return $this->parameters->get('apiUrl', $defaultUrl);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function completePurchase(array $parameters = []): RequestInterface
     {
@@ -177,7 +179,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function serverCompletePurchase(array $parameters = []): RequestInterface
     {
@@ -188,7 +190,6 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param $value
      * @return $this
      */
     public function setApiUrl($value)

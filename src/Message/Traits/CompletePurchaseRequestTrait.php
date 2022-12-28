@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Omnipay\Twispay\Message\Traits;
 
 use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
-use Paytic\Omnipay\Twispay\Helper;
+use Paytic\Omnipay\Twispay\Utility\TwispayDecoder;
 
 /**
- * Trait CompletePurchaseRequestTrait
- * @package Paytic\Omnipay\Twispay\Message\Traits
+ * Trait CompletePurchaseRequestTrait.
  */
 trait CompletePurchaseRequestTrait
 {
@@ -22,7 +23,7 @@ trait CompletePurchaseRequestTrait
             ? $this->httpRequest->request->get('opensslResult')
             : $this->httpRequest->request->get('result');
 
-        $json = Helper::decrypt($dataResult, $this->getApiKey());
+        $json = TwispayDecoder::decrypt($dataResult, $this->getApiKey());
         $data = json_decode($json, true);
 
         return $data;
@@ -33,6 +34,6 @@ trait CompletePurchaseRequestTrait
      */
     public function isValidNotification()
     {
-        return $this->hasGet('id') && ($this->hasPOST('opensslResult') || $this->hasPOST('result'));
+        return $this->hasPOST('opensslResult') || $this->hasPOST('result');
     }
 }
