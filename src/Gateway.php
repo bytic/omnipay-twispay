@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Paytic\Omnipay\Twispay;
 
-use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
+use Paytic\Omnipay\Common\Gateway\AbstractGateway;
 use Paytic\Omnipay\Twispay\Message\CompletePurchaseRequest;
 use Paytic\Omnipay\Twispay\Message\PurchaseRequest;
 use Paytic\Omnipay\Twispay\Message\ServerCompletePurchaseRequest;
